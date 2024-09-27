@@ -50,7 +50,18 @@ public class Program
 
     // obj.MyList = new List<int>();  << build error because of readonly property
 
-    // var median = Median(1.0, 2.0, 3.0);
+    var median = Median(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+    Console.WriteLine("The Median is: {0}", median);
+  }
+
+  public static double Median(params double[] args)
+  {
+    var sorted = args.OrderBy(n => n).ToArray();
+    int index = sorted.Length / 2;
+    if (sorted.Length % 2 == 0)
+      return (sorted[index] + sorted[index - 1]) / 2;
+    else
+      return sorted[index];
   }
 }
 
