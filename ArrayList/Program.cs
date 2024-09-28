@@ -154,5 +154,20 @@ public class Program
     Console.WriteLine("### Sorted Book List by Price ###");
     foreach(var book in sortedBooks)
       Console.WriteLine("{0} : {1} : {2}", book.Title, book.Price, book.Pages);
+    
+    string[] files1 = Directory.GetFiles(@"C:\Users\PC\Documents\Dev\CSharpPractice\Resources\TextFiles");
+    string[] files2 = Directory.GetFiles(@"C:\Users\PC\Documents\Dev\CSharpPractice\Resources\Images");
+    var allfiles =files1.Concat(files2);
+    allfiles.ToList().ForEach(Console.WriteLine);
+
+    var list = new List<int> { 1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9 };
+    list.RemoveAll(x => x == 5);
+    foreach (var item in list)
+      Console.Write("[{0}]", item);
+    
+    Console.WriteLine();
+
+    Type type = typeof(Book);
+    Console.WriteLine("{0}", type);
   }
 }
