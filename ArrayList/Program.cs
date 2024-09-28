@@ -50,14 +50,14 @@ public class Program
     var min = number.Where(n => n > 0)
                   .Min();
     Console.WriteLine("Minimum number is {0}", min);
-    
+
     var maxPage = books.Max(x => x.Pages);
     Console.WriteLine("Max Pages is {0}", maxPage);
 
     var maxPageBook = books.OrderBy(n => n.Pages)
                            .Select(x => x.Title)
                            .Last();
-    Console.WriteLine("Max Page Book Title is {0}", maxPageBook); 
+    Console.WriteLine("Max Page Book Title is {0}", maxPageBook);
 
     var zeroCount = number.Count(n => n == 0);
     Console.WriteLine("The number of zeros is {0}", zeroCount);
@@ -84,5 +84,75 @@ public class Program
     var word = words.FirstOrDefault(x => x.Length == 6);
     Console.WriteLine("The first 6 letters word is {0}", word);
 
+    var numbers = new List<int> { 9, 5, 4, 3, 0, -2, -1, 7, 5, 3, 0, 8, 9, -3, 0 };
+    var firstZero = numbers.Select((n, id) => new { Value = n, Index = id })
+                      .FirstOrDefault(o => o.Value == 0);
+
+    var index = firstZero == null ? -1 : firstZero.Index;
+    Console.WriteLine("The index of the first zero is {0}", index);
+
+    var idx = numbers.FindIndex(n => n < 0);
+    Console.WriteLine("The first negative number index is {0}", idx);
+
+    var idx2 = numbers.FindLastIndex(n => n == 0);
+    Console.WriteLine("The last zero index is {0}", idx2);
+
+    var results = numbers.Where(n => n > 0).Take(5);
+    foreach (var item in results)
+      Console.Write("[{0}]", item);
+
+    var selected = books.TakeWhile(x => x.Price != 800);
+    foreach (var book in selected)
+      Console.WriteLine("{0} {1}", book.Title, book.Price);
+
+    var selectedNumber = numbers.SkipWhile(n => n > 0).ToList();
+    foreach (var num in selectedNumber)
+      Console.Write("[{0}]", num);
+
+    Console.WriteLine();
+
+    var fruits = new List<string> {
+      "Orange",
+      "Persimmon",
+      "Pear",
+      "Grapes",
+      "Apple",
+      "Peach",
+      "Plum",
+      "Watermelon",
+      "Mango",
+      "Pineapple",
+      "Cherry"
+    };
+
+    var fruitsLower = fruits.Select(name => name.ToLower()).ToArray();
+    foreach (var fruit in fruitsLower)
+      Console.Write("[{0}]", fruit);
+    
+    Console.WriteLine();
+
+    var numList = new List<int> { 88, 34, 99, 12 };
+    var numStrings = numList.Select(n => n.ToString("0000")).ToArray();
+    foreach(var num in numStrings)
+      Console.Write("[{0}]", num);
+
+    Console.WriteLine();
+
+    var titles = books.Select(x => x.Title);
+    foreach(var it in titles)
+      Console.Write("[{0}]", it);
+
+    Console.WriteLine();
+    
+    var distinctNumbers = numbers.Distinct().ToList();
+    foreach (var num in distinctNumbers)
+      Console.Write("[{0}]", num);
+
+    Console.WriteLine();
+    
+    var sortedBooks = books.OrderBy(x => x.Price);
+    Console.WriteLine("### Sorted Book List by Price ###");
+    foreach(var book in sortedBooks)
+      Console.WriteLine("{0} : {1} : {2}", book.Title, book.Price, book.Pages);
   }
 }
