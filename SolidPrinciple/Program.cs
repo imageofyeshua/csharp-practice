@@ -1,14 +1,18 @@
-﻿public class Program
+﻿using SolidPrinciple.DataAccess;
+
+public class Program
 {
     public static void Main(string[] args)
     {
         var names = new Names();
-        var path = names.BuildFilePath();
+        var path = new NamesFilePathBuilder().BuildFilePath();
+        var stringsTextualRepository = new StringsTextualRepository();
 
         if (File.Exists(path))
         {
             Console.WriteLine("Names file already exists. Loading names.");
-            names.ReadFromTextFile();
+            var stringsFromFile = stringsTextualRepository.Read(path);
+            names.AddNames(stringsFromFile);
         }
         else
         {
@@ -20,10 +24,10 @@
             names.AddName("123 definitely not a valid name");
 
             Console.WriteLine("Saving names to a file");
-            names.WriteToTextFile();
+            stringsTextualRepository.Write(path, names.allNames);
         }
 
-        Console.WriteLine(names.Format());
+        Console.WriteLine(new NamesFormatter().Format(names.allNames));
         // Console.ReadKey();
     }
 }
